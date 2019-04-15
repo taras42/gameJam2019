@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMovement : MonoBehaviour
+public class EnemyBehaviour : MonoBehaviour
 {
     public float maxSpeed = 10;
     public float walkingRangeLeftBoundary = 48f;
@@ -25,6 +25,7 @@ public class EnemyMovement : MonoBehaviour
         Renderer renderer = GetComponent<Renderer>();
         size = renderer.bounds.size;
         halfWidth = size[0] / 2;
+
         FireAnimationController exampleSmb = animator.GetBehaviour<FireAnimationController>();
         exampleSmb.enemy = this;
     }
@@ -52,13 +53,13 @@ public class EnemyMovement : MonoBehaviour
 
         RaycastHit2D hitInfo = Physics2D.Raycast(firePoint.position, firePoint.right);
 
-        CharacterMovement character = hitInfo.transform.GetComponent<CharacterMovement>();
+        CharacterBehaviour character = hitInfo.transform.GetComponent<CharacterBehaviour>();
 
         bool shouldFireAtCharacter = hitInfo.distance > 0 && hitInfo.distance <= shootTargetWithinRange;
 
-        if (character != null && character && shouldFireAtCharacter)
+        if (character != null && character && shouldFireAtCharacter && character.GetVisibility())
         {
-            //animator.SetTrigger("Fire");
+            animator.SetTrigger("Fire");
         }
     }
 

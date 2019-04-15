@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterMovement : MonoBehaviour
+public class CharacterBehaviour : MonoBehaviour
 {
     // Start is called before the first frame update
 
     public CharacterController2D controller;
     public Animator animator;
+    public float runSpeed = 15f;
 
     float horizontalMove = 0f;
 
-    public float runSpeed = 15f;
+    bool isCharacterVisible = true;
 
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -33,6 +34,16 @@ public class CharacterMovement : MonoBehaviour
     public void TakeDamage()
     {
         Die();
+    }
+
+    public void SetVisibility(bool isVisible)
+    {
+        isCharacterVisible = isVisible;
+    }
+
+    public bool GetVisibility()
+    {
+        return isCharacterVisible;
     }
 
     void Die()
