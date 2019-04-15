@@ -337,8 +337,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4deea8a64657204a9c5a8eeacadbdd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 15
+  maxSpeed: 10
   walkingRange: 200
+  distanceToTarget: 15
   controller: {fileID: 373696935}
   animator: {fileID: 373696929}
   firePoint: {fileID: 1282795969}

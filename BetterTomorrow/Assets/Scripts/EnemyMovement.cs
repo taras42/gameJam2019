@@ -6,6 +6,7 @@ public class EnemyMovement : MonoBehaviour
 {
     public float maxSpeed = 10;
     public float walkingRange = 200;
+    public float distanceToTarget = 15f;
     public CharacterController2D controller;
     public Animator animator;
 
@@ -42,9 +43,11 @@ public class EnemyMovement : MonoBehaviour
         RaycastHit2D hitInfo = Physics2D.Raycast(firePoint.position, firePoint.right);
 
         CharacterMovement character = hitInfo.transform.GetComponent<CharacterMovement>();
-        if (character != null && character)
+
+        bool shouldFireAtCharacter = hitInfo.distance > 0 && hitInfo.distance <= distanceToTarget;
+
+        if (character != null && character && shouldFireAtCharacter)
         {
-            Debug.Log(hitInfo.distance);
             animator.SetTrigger("Fire");
         }
     }
