@@ -9,13 +9,17 @@ public class EnemyMovement : MonoBehaviour
     public CharacterController2D controller;
     public Animator animator;
 
+    public Transform firePoint;
+    public GameObject bulletPrefab;
+
     private float flipCounter = 0f;
     float horizontalMove = -1f;
     float direction = 0f;
 
     void Start()
     {
-
+        FireAnimationController exampleSmb = animator.GetBehaviour<FireAnimationController>();
+        exampleSmb.enemy = this;
     }
 
     void Update()
@@ -29,12 +33,24 @@ public class EnemyMovement : MonoBehaviour
         }
 
         direction = horizontalMove * maxSpeed;
-
-        //animator.SetFloat("speed", Mathf.Abs(horizontalMove));
     }
 
     void FixedUpdate()
     {
         controller.Move(direction * Time.fixedDeltaTime, false, false);
+
+        RaycastHit2D hitInfo = Physics2D.Raycast(firePoint.position, firePoint.right);
+
+        CharacterMovement character = hitInfo.transform.GetComponent<CharacterMovement>();
+        if (character != null)
+        {
+            Debug.Log("Fire");
+            animator.SetTrigger("Fire");
+        }
+    }
+
+    public void Shoot()
+    {
+        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
     }
 }
