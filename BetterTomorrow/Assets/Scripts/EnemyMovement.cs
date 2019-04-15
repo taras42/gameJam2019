@@ -42,9 +42,9 @@ public class EnemyMovement : MonoBehaviour
         RaycastHit2D hitInfo = Physics2D.Raycast(firePoint.position, firePoint.right);
 
         CharacterMovement character = hitInfo.transform.GetComponent<CharacterMovement>();
-        if (character != null)
+        if (character != null && character)
         {
-            Debug.Log("Fire");
+            Debug.Log(hitInfo.distance);
             animator.SetTrigger("Fire");
         }
     }
