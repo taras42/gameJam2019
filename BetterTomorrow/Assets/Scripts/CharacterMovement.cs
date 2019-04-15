@@ -30,4 +30,14 @@ public class CharacterMovement : MonoBehaviour
         Debug.Log(horizontalMove);
         controller.Move(horizontalMove * Time.fixedDeltaTime, false, false);
     }
+
+    public void TakeDamage()
+    {
+        Die();
+    }
+
+    void Die()
+    {
+        Destroy(gameObject);
+    }
 }
