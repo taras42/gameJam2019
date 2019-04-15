@@ -27,7 +27,6 @@ public class CharacterMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        Debug.Log(horizontalMove);
         controller.Move(horizontalMove * Time.fixedDeltaTime, false, false);
     }
 

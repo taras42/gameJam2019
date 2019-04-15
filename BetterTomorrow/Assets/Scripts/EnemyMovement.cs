@@ -5,31 +5,41 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     public float maxSpeed = 10;
-    public float walkingRange = 200;
-    public float distanceToTarget = 15f;
+    public float walkingRangeLeftBoundary = 48f;
+    public float walkingRangeRightBoundary = 82f;
+    public float shootTargetWithinRange = 15f;
     public CharacterController2D controller;
     public Animator animator;
 
     public Transform firePoint;
     public GameObject bulletPrefab;
 
-    private float flipCounter = 0f;
     float horizontalMove = -1f;
     float direction = 0f;
+    float halfWidth;
+
+    Vector3 size;
 
     void Start()
     {
+        Renderer renderer = GetComponent<Renderer>();
+        size = renderer.bounds.size;
+        halfWidth = size[0] / 2;
         FireAnimationController exampleSmb = animator.GetBehaviour<FireAnimationController>();
         exampleSmb.enemy = this;
     }
 
     void Update()
     {
-        flipCounter = flipCounter + 1;
+        Vector3 pos = transform.position;
 
-        if (flipCounter > walkingRange)
+        float xCoordinate = pos[0];
+
+        if (horizontalMove < 0 && xCoordinate - halfWidth <= walkingRangeLeftBoundary)
         {
-            flipCounter = 0;
+            horizontalMove = horizontalMove * -1f;
+        } else if (horizontalMove > 0 && xCoordinate + halfWidth >= walkingRangeRightBoundary)
+        {
             horizontalMove = horizontalMove * -1f;
         }
 
@@ -44,11 +54,11 @@ public class EnemyMovement : MonoBehaviour
 
         CharacterMovement character = hitInfo.transform.GetComponent<CharacterMovement>();
 
-        bool shouldFireAtCharacter = hitInfo.distance > 0 && hitInfo.distance <= distanceToTarget;
+        bool shouldFireAtCharacter = hitInfo.distance > 0 && hitInfo.distance <= shootTargetWithinRange;
 
         if (character != null && character && shouldFireAtCharacter)
         {
-            animator.SetTrigger("Fire");
+            //animator.SetTrigger("Fire");
         }
     }
 
