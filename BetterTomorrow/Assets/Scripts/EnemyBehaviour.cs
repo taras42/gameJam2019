@@ -52,11 +52,6 @@ public class EnemyBehaviour : MonoBehaviour
 
         CalculateDirection();
         EnableCollisionsWithCharacterIfItsVisible();
-    }
-
-    void FixedUpdate()
-    {
-        controller.Move(direction * Time.fixedDeltaTime, false, false);
 
         RaycastHit2D hitInfo = Physics2D.Raycast(firePoint.position, firePoint.right);
 
@@ -66,6 +61,11 @@ public class EnemyBehaviour : MonoBehaviour
         {
             animator.SetTrigger("Fire");
         }
+    }
+
+    void FixedUpdate()
+    {
+        controller.Move(direction * Time.fixedDeltaTime, false, false);
     }
 
     public void Shoot()
