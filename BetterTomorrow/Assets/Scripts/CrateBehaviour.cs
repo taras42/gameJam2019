@@ -18,6 +18,8 @@ public class CrateBehaviour : MonoBehaviour
     Collider2D hiddableObjectCollider;
     Collider2D crateCollider;
 
+    bool collisionsDisabled = false;
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.name == hiddableObject.name)
@@ -46,22 +48,22 @@ public class CrateBehaviour : MonoBehaviour
     void Update()
     {
 
-        if (hiddableObject != null)
+        if (hiddableObject != null && collisionsDisabled)
         {
             Vector3 hiddableObjectPos = hiddableObject.transform.position;
             float hiddableObjectXPos = hiddableObjectPos[0];
 
-            if (hiddableObjectXPos > cratePosXLeftBoundary && hiddableObjectXPos < cratePosXRightBoundary)
+            bool isInvisible = hiddableObjectXPos >= cratePosXLeftBoundary && hiddableObjectXPos <= cratePosXRightBoundary;
+
+            if (isInvisible)
             {
                 hiddableObject.SetVisibility(false);
-            }
-
-            if (hiddableObjectXPos > cratePosXRightBoundary)
+            }  else
             {
                 hiddableObject.SetVisibility(true);
             }
 
-            if (hiddableObjectXPos + hiddableObjectHalfWidth > cratePosXRightBoundary)
+            if (hiddableObjectXPos - hiddableObjectHalfWidth > cratePosXRightBoundary || hiddableObjectXPos + hiddableObjectHalfWidth < cratePosXLeftBoundary)
             {
                 EnableCollisions();
             }
@@ -75,11 +77,16 @@ public class CrateBehaviour : MonoBehaviour
 
     private void EnableCollisions()
     {
-        Physics2D.IgnoreCollision(hiddableObjectCollider, crateCollider, false);
+        if (collisionsDisabled)
+        {
+            collisionsDisabled = false;
+            Physics2D.IgnoreCollision(hiddableObjectCollider, crateCollider, false);
+        }
     }
 
     private void DisableCollisions()
     {
+        collisionsDisabled = true;
         Physics2D.IgnoreCollision(hiddableObjectCollider, crateCollider);
     }
 }

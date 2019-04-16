@@ -10,6 +10,7 @@ public class EnemyBehaviour : MonoBehaviour
     public float shootTargetWithinRange = 15f;
     public CharacterController2D controller;
     public Animator animator;
+    public CharacterBehaviour character;
 
     public Transform firePoint;
     public GameObject bulletPrefab;
@@ -18,7 +19,20 @@ public class EnemyBehaviour : MonoBehaviour
     float direction = 0f;
     float halfWidth;
 
+    Collider2D characterCollider;
+    Collider2D enemyCollider;
+
+    bool isCharacterCollisionDisabled = false;
+
     Vector3 size;
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.name == character.name && !character.GetVisibility())
+        {
+            DisableCollisionsWithCharacter();
+        }
+    }
 
     void Start()
     {
@@ -28,23 +42,16 @@ public class EnemyBehaviour : MonoBehaviour
 
         FireAnimationController exampleSmb = animator.GetBehaviour<FireAnimationController>();
         exampleSmb.enemy = this;
+
+        characterCollider = character.GetComponent<Collider2D>();
+        enemyCollider = GetComponent<Collider2D>();
     }
 
     void Update()
     {
-        Vector3 pos = transform.position;
 
-        float xCoordinate = pos[0];
-
-        if (horizontalMove < 0 && xCoordinate - halfWidth <= walkingRangeLeftBoundary)
-        {
-            horizontalMove = horizontalMove * -1f;
-        } else if (horizontalMove > 0 && xCoordinate + halfWidth >= walkingRangeRightBoundary)
-        {
-            horizontalMove = horizontalMove * -1f;
-        }
-
-        direction = horizontalMove * maxSpeed;
+        CalculateDirection();
+        EnableCollisionsWithCharacterIfItsVisible();
     }
 
     void FixedUpdate()
@@ -52,8 +59,6 @@ public class EnemyBehaviour : MonoBehaviour
         controller.Move(direction * Time.fixedDeltaTime, false, false);
 
         RaycastHit2D hitInfo = Physics2D.Raycast(firePoint.position, firePoint.right);
-
-        CharacterBehaviour character = hitInfo.transform.GetComponent<CharacterBehaviour>();
 
         bool shouldFireAtCharacter = hitInfo.distance > 0 && hitInfo.distance <= shootTargetWithinRange;
 
@@ -66,5 +71,46 @@ public class EnemyBehaviour : MonoBehaviour
     public void Shoot()
     {
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+    }
+
+    private void CalculateDirection()
+    {
+        Vector3 pos = transform.position;
+
+        float xCoordinate = pos[0];
+
+        if (horizontalMove < 0 && xCoordinate - halfWidth <= walkingRangeLeftBoundary)
+        {
+            horizontalMove = horizontalMove * -1f;
+        }
+        else if (horizontalMove > 0 && xCoordinate + halfWidth >= walkingRangeRightBoundary)
+        {
+            horizontalMove = horizontalMove * -1f;
+        }
+
+        direction = horizontalMove * maxSpeed;
+    }
+
+    private void EnableCollisionsWithCharacterIfItsVisible()
+    {
+        if (character.GetVisibility())
+        {
+            EnableCollisionsWithCharacter();
+        }
+    }
+
+    private void DisableCollisionsWithCharacter()
+    {
+        isCharacterCollisionDisabled = true;
+        Physics2D.IgnoreCollision(characterCollider, enemyCollider);
+    }
+
+    private void EnableCollisionsWithCharacter()
+    {
+        if (isCharacterCollisionDisabled)
+        {
+            isCharacterCollisionDisabled = false;
+            Physics2D.IgnoreCollision(characterCollider, enemyCollider, false);
+        }
     }
 }
