@@ -26,12 +26,18 @@ public class ElectricalNodeController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        active = true;
+        if (collision.name == "Character") {
+            active = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        active = false;
+        Debug.Log(collision.name);
+        if (collision.name == "Character")
+        {
+            active = false;
+        }
     }
 
     private void Update()

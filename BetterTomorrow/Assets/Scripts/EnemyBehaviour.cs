@@ -67,6 +67,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void TurnOnLightQuicly()
     {
+        shootTargetWithinRange = 5f;
+
         //lightSwitchPosition.position;
     }
 
