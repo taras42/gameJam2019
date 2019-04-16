@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3477611473009995453}
   - component: {fileID: 3477611473009995452}
   m_Layer: 0
-  m_Name: lightCone151x143
+  m_Name: lightCone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89,7 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3477611473129775461}
   m_Layer: 0
-  m_Name: Lamp_0_2
+  m_Name: Lamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

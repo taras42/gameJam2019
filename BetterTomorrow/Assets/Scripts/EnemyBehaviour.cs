@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     public Transform firePoint;
     public GameObject bulletPrefab;
+    public Transform lightSwitchPosition; 
 
     float horizontalMove = -1f;
     float direction = 0f;
@@ -61,6 +63,11 @@ public class EnemyBehaviour : MonoBehaviour
         {
             animator.SetTrigger("Fire");
         }
+    }
+
+    public void TurnOnLightQuicly()
+    {
+        //lightSwitchPosition.position;
     }
 
     void FixedUpdate()
