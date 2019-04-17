@@ -52,8 +52,8 @@ public class EnemyBehaviour : MonoBehaviour
     void Update()
     {
         CalculateDirection();
-        EnableCollisionsWithCharacterIfItsVisible();
 
+        EnableCollisionsWithCharacterIfItsVisible();
         RaycastHit2D hitInfo = Physics2D.Raycast(firePoint.position, firePoint.right);
 
         bool shouldFireAtCharacter = hitInfo.distance > 0 && hitInfo.distance <= shootTargetWithinRange;
@@ -67,8 +67,6 @@ public class EnemyBehaviour : MonoBehaviour
     public void TurnOnLightQuicly()
     {
         shootTargetWithinRange = 5f;
-
-        //lightSwitchPosition.position;
     }
 
     void FixedUpdate()
@@ -83,9 +81,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void CalculateDirection()
     {
-        Vector3 pos = transform.position;
-
-        float xCoordinate = pos[0];
+        float xCoordinate = transform.position.x;
 
         if (horizontalMove < 0 && xCoordinate - halfWidth <= walkingRangeLeftBoundary)
         {
@@ -95,7 +91,6 @@ public class EnemyBehaviour : MonoBehaviour
         {
             horizontalMove = horizontalMove * -1f;
         }
-
         direction = horizontalMove * maxSpeed;
     }
 

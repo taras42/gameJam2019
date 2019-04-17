@@ -1,27 +1,23 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterBehaviour : MonoBehaviour
 {
-    // Start is called before the first frame update
-
     public CharacterController2D controller;
     public Animator animator;
     public float runSpeed = 15f;
+    public int waitTime = 3;
 
-    float horizontalMove = 0f;
+    private float horizontalMove = 0f;
+    private bool isCharacterVisible = true;
+    private bool frozen = false;
 
-    bool isCharacterVisible = true;
-
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
+        if (frozen) { return; }
+
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
         animator.SetFloat("speed", Mathf.Abs(horizontalMove));
     }
@@ -31,9 +27,9 @@ public class CharacterBehaviour : MonoBehaviour
         controller.Move(horizontalMove * Time.fixedDeltaTime, false, false);
     }
 
-    public void TakeDamage()
+    public void Die()
     {
-        Die();
+        Destroy(gameObject);
     }
 
     public void SetVisibility(bool isVisible)
@@ -46,8 +42,19 @@ public class CharacterBehaviour : MonoBehaviour
         return isCharacterVisible;
     }
 
-    void Die()
+    public void interactionWithElectrycityNode()
     {
-        Destroy(gameObject);
+        StartCoroutine(Wait());
+    }
+
+    private IEnumerator Wait()
+    {
+        frozen = true;
+        animator.SetBool("interactionWithElectrycityNode", true);
+
+        yield return new WaitForSeconds(waitTime);
+
+        animator.SetBool("interactionWithElectrycityNode", false);
+        frozen = false;
     }
 }

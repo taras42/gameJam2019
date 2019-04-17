@@ -8,9 +8,11 @@ public class ElectricalNodeController : MonoBehaviour
 
     public List<GameObject> ligts;
     public EnemyBehaviour enemy;
+    public CharacterBehaviour characterBehaviour;
 
     public Sprite openSprite;
-    public Sprite closeClose;
+    public Sprite closeOnSprite;
+    public Sprite closeOffSprite;
 
     public List<Sprite> offSpritesList;
 
@@ -44,6 +46,8 @@ public class ElectricalNodeController : MonoBehaviour
     {
         if (active && Input.GetKeyDown(KeyCode.E))
         {
+            characterBehaviour.interactionWithElectrycityNode();
+
             spriteRenderer.sprite = openSprite;
             StartCoroutine(LightOff());
         }
@@ -53,15 +57,27 @@ public class ElectricalNodeController : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            yield return new WaitForSeconds(timer / 3);
             spriteRenderer.sprite = offSpritesList[i];
+            yield return new WaitForSeconds(timer / 3);
         }
+        spriteRenderer.sprite = closeOffSprite;
 
+        TriggerLights();
+        //enemy.TurnOnLightQuicly(); 
+    }
+   
+    public void ResetNode()
+    {
+        spriteRenderer.sprite = closeOnSprite;
+        TriggerLights();
+    }
+
+    public void TriggerLights()
+    {
         foreach (GameObject light in ligts)
         {
             Transform lightCone = light.transform.Find("lightCone");
             lightCone.gameObject.SetActive(!lightCone.gameObject.activeSelf);
         }
-        enemy.TurnOnLightQuicly();   
     }
 }

@@ -594,7 +594,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.63333344, y: 1.3519999, z: -10}
+  m_LocalPosition: {x: 1.6333334, y: 2.802, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1649,6 +1649,7 @@ MonoBehaviour:
   controller: {fileID: 1384139138}
   animator: {fileID: 1384139132}
   runSpeed: 100
+  waitTime: 3
 --- !u!50 &1384139136
 Rigidbody2D:
   serializedVersion: 4
@@ -6619,7 +6620,7 @@ GameObject:
   - component: {fileID: 2138610480}
   - component: {fileID: 2138610482}
   - component: {fileID: 2138610483}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: ElectricalNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6707,8 +6708,10 @@ MonoBehaviour:
   - {fileID: 1506328299}
   - {fileID: 1336689256}
   enemy: {fileID: 373696934}
+  characterBehaviour: {fileID: 1384139135}
   openSprite: {fileID: 21300008, guid: d4b35d636527f6b4c8f5f43cc84f71ad, type: 3}
-  closeClose: {fileID: 21300000, guid: d4b35d636527f6b4c8f5f43cc84f71ad, type: 3}
+  closeOnSprite: {fileID: 21300000, guid: d4b35d636527f6b4c8f5f43cc84f71ad, type: 3}
+  closeOffSprite: {fileID: 21300006, guid: d4b35d636527f6b4c8f5f43cc84f71ad, type: 3}
   offSpritesList:
   - {fileID: 21300010, guid: d4b35d636527f6b4c8f5f43cc84f71ad, type: 3}
   - {fileID: 21300012, guid: d4b35d636527f6b4c8f5f43cc84f71ad, type: 3}

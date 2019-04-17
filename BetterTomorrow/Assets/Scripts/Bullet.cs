@@ -18,7 +18,7 @@ public class Bullet : MonoBehaviour
         CharacterBehaviour enemy = hitInfo.GetComponent<CharacterBehaviour>();
         if (enemy != null)
         {
-            enemy.TakeDamage();
+            enemy.Die();
         }
 
         Destroy(gameObject);
