@@ -63,7 +63,8 @@ public class ElectricalNodeController : MonoBehaviour
         spriteRenderer.sprite = closeOffSprite;
 
         TriggerLights();
-        //enemy.TurnOnLightQuicly(); 
+
+        enemy.TurnOnLightQuicly(); 
     }
    
     public void ResetNode()

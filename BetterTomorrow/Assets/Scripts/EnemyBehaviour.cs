@@ -12,14 +12,15 @@ public class EnemyBehaviour : MonoBehaviour
     public CharacterController2D controller;
     public Animator animator;
     public CharacterBehaviour character;
+    public GameObject lightSwitch;
 
     public Transform firePoint;
     public GameObject bulletPrefab;
-    public Transform lightSwitchPosition; 
+    public Transform lightSwitchPosition;
 
-    float horizontalMove = -1f;
-    float direction = 0f;
-    float halfWidth;
+    private float horizontalMove = 1f;
+    private float direction = 0f;
+    private float destination = 1f;
 
     Collider2D characterCollider;
     Collider2D enemyCollider;
@@ -27,6 +28,7 @@ public class EnemyBehaviour : MonoBehaviour
     bool isCharacterCollisionDisabled = false;
 
     Vector3 size;
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -40,7 +42,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         Renderer renderer = GetComponent<Renderer>();
         size = renderer.bounds.size;
-        halfWidth = size[0] / 2;
+        destination = walkingRangeRightBoundary;
 
         FireAnimationController exampleSmb = animator.GetBehaviour<FireAnimationController>();
         exampleSmb.enemy = this;
@@ -67,6 +69,7 @@ public class EnemyBehaviour : MonoBehaviour
     public void TurnOnLightQuicly()
     {
         shootTargetWithinRange = 5f;
+        destination = lightSwitch.transform.position.x;
     }
 
     void FixedUpdate()
@@ -83,14 +86,17 @@ public class EnemyBehaviour : MonoBehaviour
     {
         float xCoordinate = transform.position.x;
 
-        if (horizontalMove < 0 && xCoordinate - halfWidth <= walkingRangeLeftBoundary)
+        if (xCoordinate >= destination && horizontalMove > 0)
         {
-            horizontalMove = horizontalMove * -1f;
-        }
-        else if (horizontalMove > 0 && xCoordinate + halfWidth >= walkingRangeRightBoundary)
+            horizontalMove = -1;
+            destination = walkingRangeLeftBoundary;
+        } 
+        else if (xCoordinate <= destination && horizontalMove < 0)
         {
-            horizontalMove = horizontalMove * -1f;
+            horizontalMove = 1;
+            destination = walkingRangeRightBoundary;
         }
+
         direction = horizontalMove * maxSpeed;
     }
 

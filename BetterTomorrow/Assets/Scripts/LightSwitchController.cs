@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LightSwitchController : MonoBehaviour
 {
-    public List<GameObject> lights;
+    public ElectricalNodeController electricalNodeController;
 
     // Start is called before the first frame update
     void Start()
@@ -14,10 +14,10 @@ public class LightSwitchController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Enemy")
+        Debug.Log(collision.name);
+        if (collision.name == "Enemy")
         {
-            //Transform lightCone = light.transform.Find("lightCone");
-            //lightCone.gameObject.SetActive(!lightCone.gameObject.activeSelf);
+            electricalNodeController.TriggerLights();
         }
     }
 }
