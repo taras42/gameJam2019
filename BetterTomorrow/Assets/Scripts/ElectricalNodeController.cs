@@ -26,6 +26,7 @@ public class ElectricalNodeController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log(collision.name);
         if (collision.name == "Character") {
             active = true;
         }
@@ -33,7 +34,6 @@ public class ElectricalNodeController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log(collision.name);
         if (collision.name == "Character")
         {
             active = false;
@@ -42,7 +42,7 @@ public class ElectricalNodeController : MonoBehaviour
 
     private void Update()
     {
-        if (active && Input.GetKeyDown(KeyCode.F))
+        if (active && Input.GetKeyDown(KeyCode.E))
         {
             spriteRenderer.sprite = openSprite;
             StartCoroutine(LightOff());

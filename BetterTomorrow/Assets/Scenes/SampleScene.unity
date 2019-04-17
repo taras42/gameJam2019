@@ -318,7 +318,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: d6db0bad9c09643458b5444f753f5f92, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
@@ -416,7 +416,7 @@ MonoBehaviour:
   firePoint: {fileID: 1282795969}
   bulletPrefab: {fileID: 3750817423242115071, guid: d139673f294284cef95da30e3fbc0351,
     type: 3}
-  lightSwitchPosition: {fileID: 0}
+  lightSwitchPosition: {fileID: 1720731988}
 --- !u!114 &373696935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1607,7 +1607,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 9038e7ed18ec6497994e14889f387f55, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b07c61f6ab6654f678a530cc0ceb4270, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1918,6 +1918,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1720731988 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 655563458280325672, guid: cce18335b27cf4e7d9b1c119d6ecb76c,
+    type: 3}
+  m_PrefabInstance: {fileID: 655563456486416817}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1748570327
 GameObject:
   m_ObjectHideFlags: 0

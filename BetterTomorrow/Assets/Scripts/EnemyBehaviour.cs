@@ -51,7 +51,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Update()
     {
-
         CalculateDirection();
         EnableCollisionsWithCharacterIfItsVisible();
 
