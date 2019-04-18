@@ -297,3 +297,4 @@ MonoBehaviour:
   firePoint: {fileID: 2043998614984318934}
   bulletPrefab: {fileID: 3750817423242115071, guid: d139673f294284cef95da30e3fbc0351,
     type: 3}
+  ignoreLayer: 16

@@ -52,11 +52,9 @@ public class ToggleArcModeTeslaCoilBehaviour : MonoBehaviour
         } 
     }
 
-    public IEnumerator ActivatePeriodicArcMode()
+    private IEnumerator ActivatePeriodicArcMode()
     {
-        new WaitForSeconds(toggleElectricityArcWithDelays[0]);
-
-        for (int i = 1; i < toggleElectricityArcWithDelays.Count; i++)
+        for (int i = 0; i < toggleElectricityArcWithDelays.Count; i++)
         {
             for (int j = 0; j < electricityArcs.Count; j++)
             {

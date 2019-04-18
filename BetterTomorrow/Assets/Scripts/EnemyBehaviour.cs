@@ -16,9 +16,13 @@ public class EnemyBehaviour : MonoBehaviour
     public Transform firePoint;
     public GameObject bulletPrefab;
 
+    public int ignoreLayer;
+
     private float horizontalMove = 1f;
     private float direction = 0f;
     private float destination = 1f;
+
+    private float rayCastMaxDistance = 25f;
 
     Collider2D characterCollider;
     Collider2D enemyCollider;
@@ -40,6 +44,9 @@ public class EnemyBehaviour : MonoBehaviour
 
         characterCollider = character.GetComponent<Collider2D>();
         enemyCollider = GetComponent<Collider2D>();
+
+        ignoreLayer = 1 << ignoreLayer;
+        ignoreLayer = ~ignoreLayer;
     }
 
     void Update()
@@ -47,9 +54,9 @@ public class EnemyBehaviour : MonoBehaviour
         CalculateDirection();
         EnableCollisionsWithCharacterIfItsVisible();
 
-        RaycastHit2D hitInfo = Physics2D.Raycast(firePoint.position, firePoint.right);
+        RaycastHit2D hitInfo = Physics2D.Raycast(firePoint.position, firePoint.right, rayCastMaxDistance, ignoreLayer);
 
-        if (character != null)
+        if (character != null && hitInfo)
         {
             bool targetWithinRange = hitInfo.distance > 0f && hitInfo.distance <= shootTargetWithinRange;
             bool targetIsCharacter = hitInfo.transform.position.x == character.transform.position.x;
