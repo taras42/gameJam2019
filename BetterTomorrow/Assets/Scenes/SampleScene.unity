@@ -8119,6 +8119,7 @@ MonoBehaviour:
   openSprite: {fileID: 21300008, guid: d4b35d636527f6b4c8f5f43cc84f71ad, type: 3}
   closeOnSprite: {fileID: 21300000, guid: d4b35d636527f6b4c8f5f43cc84f71ad, type: 3}
   closeOffSprite: {fileID: 21300000, guid: d4b35d636527f6b4c8f5f43cc84f71ad, type: 3}
+  nearestSwitchAnchorPoint: 60
   offSpritesList:
   - {fileID: 21300002, guid: d4b35d636527f6b4c8f5f43cc84f71ad, type: 3}
   - {fileID: 21300004, guid: d4b35d636527f6b4c8f5f43cc84f71ad, type: 3}
@@ -8330,7 +8331,7 @@ PrefabInstance:
     - target: {fileID: 2043998616430059444, guid: 19e9a171ec20c694b96544f933988125,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2043998616430059444, guid: 19e9a171ec20c694b96544f933988125,
         type: 3}
@@ -8377,6 +8378,11 @@ PrefabInstance:
       propertyPath: character
       value: 
       objectReference: {fileID: 1384139135}
+    - target: {fileID: 2043998616430059441, guid: 19e9a171ec20c694b96544f933988125,
+        type: 3}
+      propertyPath: walkingRangeRightBoundary
+      value: 84
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19e9a171ec20c694b96544f933988125, type: 3}
 --- !u!1001 &3477611473318439661

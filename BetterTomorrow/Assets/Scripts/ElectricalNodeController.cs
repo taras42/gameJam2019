@@ -14,6 +14,8 @@ public class ElectricalNodeController : MonoBehaviour
     public Sprite closeOnSprite;
     public Sprite closeOffSprite;
 
+    public float nearestSwitchAnchorPoint = 0f;
+
     public List<Sprite> offSpritesList;
 
     public int timer;
@@ -125,13 +127,12 @@ public class ElectricalNodeController : MonoBehaviour
         float firstX = firstLightSwitch.transform.position.x;
         float secondX = secondLightSwitch.transform.position.x;
 
-        float enemyX = transform.position.x;
+        float enemyX = enemy.transform.position.x;
 
-        if (Math.Abs(secondX - enemyX) > Math.Abs(firstX - enemyX))
+        if (enemyX <= nearestSwitchAnchorPoint)
         {
             enemy.GoTo(firstX);
-        }
-        else
+        } else
         {
             enemy.GoTo(secondX);
         }
