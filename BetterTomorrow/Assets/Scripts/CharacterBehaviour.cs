@@ -47,6 +47,11 @@ public class CharacterBehaviour : MonoBehaviour
         StartCoroutine(Wait());
     }
 
+    public bool IsFrozen()
+    {
+        return frozen;
+    }
+
     private IEnumerator Wait()
     {
         frozen = true;

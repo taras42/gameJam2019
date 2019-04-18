@@ -14,7 +14,6 @@ public class LightSwitchController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.name);
         if (collision.name == "Enemy")
         {
             electricalNodeController.TriggerLights();
