@@ -25,6 +25,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     bool isCharacterCollisionDisabled = false;
 
+    bool gunLoaded = false;
+
     Vector3 size;
 
     void Start()
@@ -49,11 +51,12 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (character != null)
         {
-            bool targetWithinRange = hitInfo.distance > 0 && hitInfo.distance <= shootTargetWithinRange;
+            bool targetWithinRange = hitInfo.distance > 0f && hitInfo.distance <= shootTargetWithinRange;
             bool targetIsCharacter = hitInfo.transform.position.x == character.transform.position.x;
 
-            if (character && targetWithinRange && targetIsCharacter && character.GetVisibility())
+            if (targetWithinRange && targetIsCharacter && character.GetVisibility())
             {
+                gunLoaded = true;
                 animator.SetTrigger("Fire");
             }
         }
@@ -69,12 +72,20 @@ public class EnemyBehaviour : MonoBehaviour
 
     void FixedUpdate()
     {
-        controller.Move(direction * Time.fixedDeltaTime, false, false);
+        if (!gunLoaded)
+        {
+            controller.Move(direction * Time.fixedDeltaTime, false, false);
+        }
     }
 
     public void Shoot()
     {
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+    }
+
+    public void Reload()
+    {
+        gunLoaded = false;
     }
 
     private void CalculateDirection()
