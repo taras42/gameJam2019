@@ -6,9 +6,9 @@ using UnityEngine;
 public class ElectricalNodeController : MonoBehaviour
 {
 
-    public List<GameObject> ligts;
+    public List<GameObject> lights;
     public EnemyBehaviour enemy;
-    public CharacterBehaviour characterBehaviour;
+    public CharacterBehaviour character;
 
     public Sprite openSprite;
     public Sprite closeOnSprite;
@@ -18,75 +18,101 @@ public class ElectricalNodeController : MonoBehaviour
 
     public int timer;
 
-    private bool active;
+    private bool theNodeCanBeOperated = true;
+    private bool lightOffCountDownStarted = false;
+
+    private bool characterNearTheNode;
     private SpriteRenderer spriteRenderer;
 
     public Transform firstLightSwitch;
     public Transform secondLightSwitch;
 
+    private float initialEnemySpeed;
+    private float initialEnemyShootTargetWithinRange;
+
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        initialEnemySpeed = enemy.maxSpeed;
+        initialEnemyShootTargetWithinRange = enemy.shootTargetWithinRange;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.name == "Character") {
-            active = true;
+        if (collision.name == character.name) {
+            characterNearTheNode = true;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.name == "Character")
+        if (collision.name == character.name)
         {
-            active = false;
+            characterNearTheNode = false;
         }
     }
 
     private void Update()
     {
-        if (active && Input.GetKeyDown(KeyCode.E) && characterBehaviour != null)
+        if (character != null)
         {
-            characterBehaviour.interactionWithElectrycityNode();
+            bool iterationKeyPressed = Input.GetAxisRaw("Iteract") > 0;
 
-            spriteRenderer.sprite = openSprite;
-            StartCoroutine(LightOff());
+            if (characterNearTheNode && iterationKeyPressed && theNodeCanBeOperated)
+            {
+                theNodeCanBeOperated = false;
+
+                character.interactionWithElectrycityNode();
+
+                spriteRenderer.sprite = openSprite;
+            }
+
+            if (!theNodeCanBeOperated && !character.IsFrozen() && !lightOffCountDownStarted)
+            {
+                lightOffCountDownStarted = true;
+
+                spriteRenderer.sprite = closeOffSprite;
+
+                StartCoroutine(LightOff());
+            }
         }
     }
 
     private IEnumerator LightOff()
     {
-        yield return new WaitForSeconds(characterBehaviour.waitTime);
-
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < offSpritesList.Count; i++)
         {
             spriteRenderer.sprite = offSpritesList[i];
-            yield return new WaitForSeconds(timer / 3);
+            yield return new WaitForSeconds(timer / offSpritesList.Count);
         }
-        spriteRenderer.sprite = closeOffSprite;
 
         TriggerLights();
-
-        TurnOnLightQuicly(); 
+        MakeEnemyTurnTheLightsOn(); 
     }
    
     public void ResetNode()
     {
+        theNodeCanBeOperated = true;
+        lightOffCountDownStarted = false;
+
+        enemy.shootTargetWithinRange = initialEnemyShootTargetWithinRange;
+        enemy.maxSpeed = initialEnemySpeed;
+
         spriteRenderer.sprite = closeOnSprite;
+
         TriggerLights();
     }
 
     public void TriggerLights()
     {
-        foreach (GameObject light in ligts)
+        foreach (GameObject light in lights)
         {
             Transform lightCone = light.transform.Find("lightCone");
             lightCone.gameObject.SetActive(!lightCone.gameObject.activeSelf);
         }
     }
 
-    private void TurnOnLightQuicly()
+    private void MakeEnemyTurnTheLightsOn()
     {
         enemy.shootTargetWithinRange = 5f;
         enemy.maxSpeed = enemy.maxSpeed * 2;

@@ -645,7 +645,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 72.63267, y: 15.188, z: -10}
+  m_LocalPosition: {x: 30.982666, y: 2.0979998, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2712,7 +2712,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1384139131}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 72.91, y: 13.28, z: 0}
+  m_LocalPosition: {x: 31.26, y: 0.19, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 205375350}
@@ -3323,7 +3323,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1748570327}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 72.63267, y: 15.188, z: -10}
+  m_LocalPosition: {x: 30.982666, y: 2.0979998, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1542032589}
@@ -8108,21 +8108,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac6c87cfe25d74ca28159cccba6b6f7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ligts:
-  - {fileID: 1161722522}
+  lights:
   - {fileID: 793893689}
+  - {fileID: 1161722522}
   - {fileID: 525257607}
   - {fileID: 1506328299}
   - {fileID: 1336689256}
   enemy: {fileID: 373696934}
-  characterBehaviour: {fileID: 1384139135}
+  character: {fileID: 1384139135}
   openSprite: {fileID: 21300008, guid: d4b35d636527f6b4c8f5f43cc84f71ad, type: 3}
   closeOnSprite: {fileID: 21300000, guid: d4b35d636527f6b4c8f5f43cc84f71ad, type: 3}
-  closeOffSprite: {fileID: 21300006, guid: d4b35d636527f6b4c8f5f43cc84f71ad, type: 3}
+  closeOffSprite: {fileID: 21300000, guid: d4b35d636527f6b4c8f5f43cc84f71ad, type: 3}
   offSpritesList:
-  - {fileID: 21300010, guid: d4b35d636527f6b4c8f5f43cc84f71ad, type: 3}
-  - {fileID: 21300012, guid: d4b35d636527f6b4c8f5f43cc84f71ad, type: 3}
-  - {fileID: 21300014, guid: d4b35d636527f6b4c8f5f43cc84f71ad, type: 3}
+  - {fileID: 21300002, guid: d4b35d636527f6b4c8f5f43cc84f71ad, type: 3}
+  - {fileID: 21300004, guid: d4b35d636527f6b4c8f5f43cc84f71ad, type: 3}
+  - {fileID: 21300006, guid: d4b35d636527f6b4c8f5f43cc84f71ad, type: 3}
   timer: 5
   firstLightSwitch: {fileID: 1720731988}
   secondLightSwitch: {fileID: 370215017}
