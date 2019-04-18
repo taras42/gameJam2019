@@ -16,7 +16,7 @@ public class LightSwitchController : MonoBehaviour
     {
         if (collision.name == "Enemy")
         {
-            electricalNodeController.TriggerLights();
+            electricalNodeController.ResetNode();
         }
     }
 }
