@@ -15,8 +15,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     public Transform firePoint;
     public GameObject bulletPrefab;
-    public Transform firstLightSwitch;
-    public Transform secondLightSwitch;
 
     private float horizontalMove = 1f;
     private float direction = 0f;
@@ -55,14 +53,6 @@ public class EnemyBehaviour : MonoBehaviour
         {
             animator.SetTrigger("Fire");
         }
-    }
-
-    public void TurnOnLightQuicly()
-    {
-        shootTargetWithinRange = 5f;
-        maxSpeed = maxSpeed * 2;
-
-        GoToTheNearestLightSwitcher();
     }
 
     public void GoTo(float dest)
@@ -129,23 +119,6 @@ public class EnemyBehaviour : MonoBehaviour
         {
             isCharacterCollisionDisabled = false;
             Physics2D.IgnoreCollision(characterCollider, enemyCollider, false);
-        }
-    }
-
-    private void GoToTheNearestLightSwitcher()
-    {
-        float firstX = firstLightSwitch.transform.position.x;
-        float secondX = secondLightSwitch.transform.position.x;
-
-        float enemyX = transform.position.x;
-
-        if (Math.Abs(secondX - enemyX) > Math.Abs(firstX - enemyX))
-        {
-            GoTo(firstX);
-        }
-        else
-        {
-            GoTo(secondX);
         }
     }
 }

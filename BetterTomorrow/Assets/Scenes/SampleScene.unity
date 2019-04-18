@@ -618,8 +618,6 @@ MonoBehaviour:
   firePoint: {fileID: 1282795969}
   bulletPrefab: {fileID: 3750817423242115071, guid: d139673f294284cef95da30e3fbc0351,
     type: 3}
-  firstLightSwitch: {fileID: 1720731988}
-  secondLightSwitch: {fileID: 370215017}
 --- !u!114 &373696935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8316,6 +8314,8 @@ MonoBehaviour:
   - {fileID: 21300012, guid: d4b35d636527f6b4c8f5f43cc84f71ad, type: 3}
   - {fileID: 21300014, guid: d4b35d636527f6b4c8f5f43cc84f71ad, type: 3}
   timer: 5
+  firstLightSwitch: {fileID: 1720731988}
+  secondLightSwitch: {fileID: 370215017}
 --- !u!61 &2138610483
 BoxCollider2D:
   m_ObjectHideFlags: 0

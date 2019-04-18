@@ -21,6 +21,9 @@ public class ElectricalNodeController : MonoBehaviour
     private bool active;
     private SpriteRenderer spriteRenderer;
 
+    public Transform firstLightSwitch;
+    public Transform secondLightSwitch;
+
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -65,7 +68,7 @@ public class ElectricalNodeController : MonoBehaviour
 
         TriggerLights();
 
-        enemy.TurnOnLightQuicly(); 
+        TurnOnLightQuicly(); 
     }
    
     public void ResetNode()
@@ -80,6 +83,31 @@ public class ElectricalNodeController : MonoBehaviour
         {
             Transform lightCone = light.transform.Find("lightCone");
             lightCone.gameObject.SetActive(!lightCone.gameObject.activeSelf);
+        }
+    }
+
+    private void TurnOnLightQuicly()
+    {
+        enemy.shootTargetWithinRange = 5f;
+        enemy.maxSpeed = enemy.maxSpeed * 2;
+
+        GoToTheNearestLightSwitcher();
+    }
+
+    private void GoToTheNearestLightSwitcher()
+    {
+        float firstX = firstLightSwitch.transform.position.x;
+        float secondX = secondLightSwitch.transform.position.x;
+
+        float enemyX = transform.position.x;
+
+        if (Math.Abs(secondX - enemyX) > Math.Abs(firstX - enemyX))
+        {
+            enemy.GoTo(firstX);
+        }
+        else
+        {
+            enemy.GoTo(secondX);
         }
     }
 }
