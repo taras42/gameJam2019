@@ -10,8 +10,8 @@ public class DelayControlledTeslaCoilControllerByElectricalNodeBehaviour : MonoB
 
     void Start()
     {
-        leftElectricityArc.gameObject.SetActive(false);
-        rightElectricityArc.gameObject.SetActive(false);
+        //leftElectricityArc.gameObject.SetActive(false);
+        //rightElectricityArc.gameObject.SetActive(false);
     }
 
     // Update is called once per frame

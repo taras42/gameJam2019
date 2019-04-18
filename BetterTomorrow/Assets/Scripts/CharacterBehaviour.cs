@@ -28,7 +28,8 @@ public class CharacterBehaviour : MonoBehaviour
 
     public void Die()
     {
-        Destroy(gameObject);
+        // to avoild putting null checks everywhere
+        gameObject.SetActive(false);
     }
 
     public void SetVisibility(bool isVisible)

@@ -43,15 +43,19 @@ public class EnemyBehaviour : MonoBehaviour
     void Update()
     {
         CalculateDirection();
-
         EnableCollisionsWithCharacterIfItsVisible();
+
         RaycastHit2D hitInfo = Physics2D.Raycast(firePoint.position, firePoint.right);
 
-        bool shouldFireAtCharacter = hitInfo.distance > 0 && hitInfo.distance <= shootTargetWithinRange;
-
-        if (character != null && character && shouldFireAtCharacter && character.GetVisibility())
+        if (character != null)
         {
-            animator.SetTrigger("Fire");
+            bool targetWithinRange = hitInfo.distance > 0 && hitInfo.distance <= shootTargetWithinRange;
+            bool targetIsCharacter = hitInfo.transform.position.x == character.transform.position.x;
+
+            if (character && targetWithinRange && targetIsCharacter && character.GetVisibility())
+            {
+                animator.SetTrigger("Fire");
+            }
         }
     }
 
