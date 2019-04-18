@@ -16,14 +16,13 @@ public class CharacterBehaviour : MonoBehaviour
 
     void Update()
     {
-        if (frozen) { return; }
-
         horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
         animator.SetFloat("speed", Mathf.Abs(horizontalMove));
     }
 
     void FixedUpdate()
     {
+        if(frozen) { return; }
         controller.Move(horizontalMove * Time.fixedDeltaTime, false, false);
     }
 

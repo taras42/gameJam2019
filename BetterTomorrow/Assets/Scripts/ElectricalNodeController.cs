@@ -54,6 +54,8 @@ public class ElectricalNodeController : MonoBehaviour
 
     private IEnumerator LightOff()
     {
+        yield return new WaitForSeconds(characterBehaviour.waitTime);
+
         for (int i = 0; i < 3; i++)
         {
             spriteRenderer.sprite = offSpritesList[i];
