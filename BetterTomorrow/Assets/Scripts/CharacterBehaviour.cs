@@ -13,6 +13,12 @@ public class CharacterBehaviour : MonoBehaviour
     private float horizontalMove = 0f;
     private bool isCharacterVisible = true;
     private bool frozen = false;
+    private Rigidbody2D m_Rigidbody2D;
+
+    private void Awake()
+    {
+        m_Rigidbody2D = GetComponent<Rigidbody2D>();
+    }
 
     void Update()
     {
@@ -24,6 +30,11 @@ public class CharacterBehaviour : MonoBehaviour
     {
         if(frozen) { return; }
         controller.Move(horizontalMove * Time.fixedDeltaTime, false, false);
+    }
+
+    public void MoveVerticaly()
+    {
+        m_Rigidbody2D.velocity = (new Vector2(m_Rigidbody2D.velocity.x, 10));
     }
 
     public void Die()
@@ -40,6 +51,11 @@ public class CharacterBehaviour : MonoBehaviour
     public bool GetVisibility()
     {
         return isCharacterVisible;
+    }
+
+    public void ElevatorMove(Vector3 position)
+    {
+        m_Rigidbody2D.position = position;
     }
 
     public void interactionWithElectrycityNode()

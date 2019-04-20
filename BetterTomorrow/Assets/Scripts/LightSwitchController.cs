@@ -16,12 +16,6 @@ public class LightSwitchController : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     private void Update()
     {
         if (shouldResetElectricNode)
