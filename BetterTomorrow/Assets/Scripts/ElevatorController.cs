@@ -13,6 +13,7 @@ public class ElevatorController : MonoBehaviour
 
     private bool characterNearTheElevator = false;
     private Rigidbody2D m_Rigidbody2D;
+    private AudioSource audioSource;
     private Vector3 position;
     private bool elevatorMove = false;
 
@@ -28,6 +29,7 @@ public class ElevatorController : MonoBehaviour
     private void Awake()
     {
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -38,6 +40,7 @@ public class ElevatorController : MonoBehaviour
         if (characterNearTheElevator && iterationKeyPressed && !elevatorMove)
         {
             elevatorMove = true;
+            audioSource.Play();
         }
     }
 
@@ -65,6 +68,8 @@ public class ElevatorController : MonoBehaviour
             {
                 elevatorMove = false;
                 upDirection = false;
+
+                audioSource.Pause();
             }
         } else
         {
@@ -72,6 +77,8 @@ public class ElevatorController : MonoBehaviour
             {
                 elevatorMove = false;
                 upDirection = true;
+
+                audioSource.Pause();
             }
         }
     }
