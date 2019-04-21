@@ -53,11 +53,6 @@ public class CharacterBehaviour : MonoBehaviour
         return isCharacterVisible;
     }
 
-    public void ElevatorMove(Vector3 position)
-    {
-        m_Rigidbody2D.position = position;
-    }
-
     public void interactionWithElectrycityNode()
     {
         StartCoroutine(Wait());

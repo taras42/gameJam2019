@@ -15,7 +15,6 @@ public class ElevatorController : MonoBehaviour
     private Vector3 position;
     private bool elevatorMove = false;
     private bool elevatorActive = true;
-    private float elevatorCounter = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -32,11 +31,15 @@ public class ElevatorController : MonoBehaviour
     void Update()
     {
         bool iterationKeyPressed = Input.GetAxisRaw("Iteract") > 0;
+
         if (characterNearTheElevator && iterationKeyPressed && !elevatorMove && elevatorActive)
         {
             elevatorMove = true;
         }
+    }
 
+    private void FixedUpdate()
+    {
         if (elevatorMove)
         {
             ElevatorMove();
@@ -46,18 +49,12 @@ public class ElevatorController : MonoBehaviour
     private void ElevatorMove()
     {
         position = transform.position;
-        transform.position = new Vector2(position.x, position.y + elevatorSpeed);
-
-        character.ElevatorMove(transform.position);
-
-        elevatorCounter = elevatorCounter + elevatorSpeed;
+        transform.position = new Vector2(position.x, position.y + (elevatorSpeed * Time.fixedDeltaTime));
        
-        if (elevatorCounter >= floor)
+        if (transform.position.y >= floor)
         {
-            Debug.Log("el " + elevatorCounter);
             elevatorMove = false;
             elevatorActive = false;
-            elevatorCounter = 0;
         }
     }
 
