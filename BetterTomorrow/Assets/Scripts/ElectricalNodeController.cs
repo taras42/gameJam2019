@@ -25,6 +25,7 @@ public class ElectricalNodeController : MonoBehaviour
 
     private bool characterNearTheNode;
     private SpriteRenderer spriteRenderer;
+    private AudioSource audioSource;
 
     public Transform firstLightSwitch;
     public Transform secondLightSwitch;
@@ -35,6 +36,8 @@ public class ElectricalNodeController : MonoBehaviour
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
+
         initialEnemySpeed = enemy.maxSpeed;
         initialEnemyShootTargetWithinRange = enemy.shootTargetWithinRange;
     }
@@ -82,12 +85,13 @@ public class ElectricalNodeController : MonoBehaviour
 
     private IEnumerator LightOff()
     {
+        audioSource.Play();
         for (int i = 0; i < offSpritesList.Count; i++)
         {
             spriteRenderer.sprite = offSpritesList[i];
             yield return new WaitForSeconds(timer / offSpritesList.Count);
         }
-
+        audioSource.Pause();
         TriggerLights();
         MakeEnemyTurnTheLightsOn(); 
     }

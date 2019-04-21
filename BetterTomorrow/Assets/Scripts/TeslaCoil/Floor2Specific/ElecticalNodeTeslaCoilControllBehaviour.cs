@@ -18,6 +18,7 @@ public class ElecticalNodeTeslaCoilControllBehaviour : MonoBehaviour
     public List<Sprite> offSpritesList;
 
     private SpriteRenderer spriteRenderer;
+    private AudioSource audioSource;
     private bool characterNearTheNode = false;
     private bool theNodeCanBeOperated = true;
 
@@ -42,8 +43,9 @@ public class ElecticalNodeTeslaCoilControllBehaviour : MonoBehaviour
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
     }
-    // Start is called before the first frame update
+
     private void Update()
     {
         bool iterationKeyPressed = Input.GetAxisRaw("Iteract") > 0;
@@ -72,6 +74,8 @@ public class ElecticalNodeTeslaCoilControllBehaviour : MonoBehaviour
 
     private IEnumerator ActivateCoil()
     {
+        audioSource.Play();
+
         for (int i = 0; i < onSpritesList.Count; i++)
         {
             spriteRenderer.sprite = onSpritesList[i];
@@ -91,6 +95,8 @@ public class ElecticalNodeTeslaCoilControllBehaviour : MonoBehaviour
             spriteRenderer.sprite = offSpritesList[i];
             yield return new WaitForSeconds(coilDeactivationDelay / offSpritesList.Count);
         }
+
+        audioSource.Pause();
 
         delayControlledCoil.Deactivate();
         toggleArcModeCoil.EnableContiniousArcMode();

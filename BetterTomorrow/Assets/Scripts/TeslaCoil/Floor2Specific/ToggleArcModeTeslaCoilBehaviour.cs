@@ -13,9 +13,11 @@ public class ToggleArcModeTeslaCoilBehaviour : MonoBehaviour
     private bool modeManualyToggled = false;
 
     private bool coroutineInProgress = false;
+
     // Start is called before the first frame update
     void Start()
     {
+
         if (!autoModePeriodic)
         {
             isContinious = true;

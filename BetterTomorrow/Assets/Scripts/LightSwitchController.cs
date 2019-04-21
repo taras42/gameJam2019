@@ -7,12 +7,19 @@ public class LightSwitchController : MonoBehaviour
     public ElectricalNodeController electricalNodeController;
 
     private bool shouldResetElectricNode = false;
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.name == "Enemy")
         {
             shouldResetElectricNode = true;
+            audioSource.Play();
         }
     }
 
