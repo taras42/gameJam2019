@@ -15,6 +15,9 @@ public class CharacterBehaviour : MonoBehaviour
     private bool frozen = false;
     private Rigidbody2D m_Rigidbody2D;
 
+    private bool autoMove = false;
+    private float autoMoveDirection = 1f;
+
     private void Awake()
     {
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
@@ -22,19 +25,46 @@ public class CharacterBehaviour : MonoBehaviour
 
     void Update()
     {
-        horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
-        animator.SetFloat("speed", Mathf.Abs(horizontalMove));
+        horizontalMove = GetHorizontalMove() * runSpeed;
+
+        if (!frozen || autoMove)
+        {
+            animator.SetFloat("speed", Mathf.Abs(horizontalMove));
+        }
     }
 
     void FixedUpdate()
     {
-        if(frozen) { return; }
-        controller.Move(horizontalMove * Time.fixedDeltaTime, false, false);
+        if(!frozen || autoMove)
+        {
+            controller.Move(horizontalMove * Time.fixedDeltaTime, false, false);
+        }
     }
 
-    public void MoveVerticaly()
+    public float GetHorizontalMove()
     {
-        m_Rigidbody2D.velocity = (new Vector2(m_Rigidbody2D.velocity.x, 10));
+        if (autoMove)
+        {
+            return autoMoveDirection;
+        } else
+        {
+            return Input.GetAxisRaw("Horizontal");
+        }
+    }
+
+    public void EnableAutoMove()
+    {
+        autoMove = true;
+    }
+
+    public void DisableAutoMove()
+    {
+        autoMove = false;
+    }
+
+    public void SetAutoMoveDirection(float direction)
+    {
+        autoMoveDirection = direction;
     }
 
     public void Die()
@@ -63,6 +93,16 @@ public class CharacterBehaviour : MonoBehaviour
         return frozen;
     }
 
+    public void Freeze()
+    {
+        frozen = true;
+    }
+
+    public void UnFreeze()
+    {
+        frozen = false;
+    }
+
     public void PullDown(float forceY)
     {
         m_Rigidbody2D.AddForce(new Vector2(0f, forceY));
@@ -70,12 +110,12 @@ public class CharacterBehaviour : MonoBehaviour
 
     private IEnumerator Wait()
     {
-        frozen = true;
+        Freeze();
         animator.SetBool("interactionWithElectrycityNode", true);
 
         yield return new WaitForSeconds(waitTime);
 
         animator.SetBool("interactionWithElectrycityNode", false);
-        frozen = false;
+        UnFreeze();
     }
 }
