@@ -1162,7 +1162,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.622665, y: 16.907999, z: -10}
+  m_LocalPosition: {x: -7.7773337, y: 2.2079997, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -15004,6 +15004,11 @@ PrefabInstance:
       propertyPath: m_Size.x
       value: 0.52076685
       objectReference: {fileID: 0}
+    - target: {fileID: 8685578179803654896, guid: 3a4915da14dabf64fa3a62b874edc0e3,
+        type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a4915da14dabf64fa3a62b874edc0e3, type: 3}
 --- !u!4 &889312111 stripped
@@ -15742,6 +15747,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LightSwitch_0_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 655563458280325670, guid: cce18335b27cf4e7d9b1c119d6ecb76c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 655563458280325672, guid: cce18335b27cf4e7d9b1c119d6ecb76c,
         type: 3}
@@ -29612,7 +29622,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1384139131}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.9, y: 14.5, z: 0}
+  m_LocalPosition: {x: -7.5, y: 0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 205375350}
@@ -31143,7 +31153,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1748570327}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.622665, y: 16.407999, z: -10}
+  m_LocalPosition: {x: -7.7773337, y: 2.2079997, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1542032589}
@@ -41037,6 +41047,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LightSwitch_0_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 655563458280325670, guid: cce18335b27cf4e7d9b1c119d6ecb76c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 655563458280325672, guid: cce18335b27cf4e7d9b1c119d6ecb76c,
         type: 3}
