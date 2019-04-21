@@ -15,6 +15,7 @@ public class CutSceneController : MonoBehaviour
     private int filmSortingOrder = 5;
 
     private float cutSceneTriggerXPos = 18;
+    private float cutSceneTriggerYPos = 24;
     private float cutSceneCharacterStopPosX = 28;
 
     private bool startMoveFilms = false;
@@ -37,8 +38,9 @@ public class CutSceneController : MonoBehaviour
     void Update()
     {
         float characterPosX = character.transform.position.x;
+        float characterPosY = character.transform.position.y;
 
-        if (characterPosX >= cutSceneTriggerXPos && !filmsFinishedMoving)
+        if (characterPosX >= cutSceneTriggerXPos && characterPosY >= cutSceneTriggerYPos && !filmsFinishedMoving)
         {
             character.Freeze();
             character.EnableAutoMove();
@@ -46,7 +48,7 @@ public class CutSceneController : MonoBehaviour
             ActivateFilms();
         }
 
-        if (characterPosX >= cutSceneCharacterStopPosX && !filmsFinishedMoving)
+        if (characterPosX >= cutSceneCharacterStopPosX && characterPosY >= cutSceneTriggerYPos && !filmsFinishedMoving)
         {
             character.SetAutoMoveDirection(0);
             startMoveFilms = false;
