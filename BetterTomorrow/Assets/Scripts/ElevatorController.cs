@@ -9,17 +9,20 @@ public class ElevatorController : MonoBehaviour
     public CharacterBehaviour character;
     public float floor = 12;
     public float elevatorSpeed = 1;
+    public float characterPullDownForce = -200f;
 
     private bool characterNearTheElevator = false;
     private Rigidbody2D m_Rigidbody2D;
     private Vector3 position;
     private bool elevatorMove = false;
-    private bool elevatorActive = true;
+
+    private float startPosition;
+    private bool upDirection = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        //elevatorCounter = floor;
+        startPosition = transform.position.y;
     }
 
     private void Awake()
@@ -32,7 +35,7 @@ public class ElevatorController : MonoBehaviour
     {
         bool iterationKeyPressed = Input.GetAxisRaw("Iteract") > 0;
 
-        if (characterNearTheElevator && iterationKeyPressed && !elevatorMove && elevatorActive)
+        if (characterNearTheElevator && iterationKeyPressed && !elevatorMove)
         {
             elevatorMove = true;
         }
@@ -48,13 +51,28 @@ public class ElevatorController : MonoBehaviour
 
     private void ElevatorMove()
     {
+        character.PullDown(characterPullDownForce);
+
         position = transform.position;
-        transform.position = new Vector2(position.x, position.y + (elevatorSpeed * Time.fixedDeltaTime));
+
+        float directionModifier = upDirection ? 1 : -1;
+
+        transform.position = new Vector2(position.x, (position.y + (elevatorSpeed * Time.fixedDeltaTime * directionModifier)));
        
-        if (transform.position.y >= floor)
+        if (upDirection)
         {
-            elevatorMove = false;
-            elevatorActive = false;
+            if (transform.position.y >= floor)
+            {
+                elevatorMove = false;
+                upDirection = false;
+            }
+        } else
+        {
+            if (transform.position.y <= startPosition)
+            {
+                elevatorMove = false;
+                upDirection = true;
+            }
         }
     }
 

@@ -63,6 +63,11 @@ public class CharacterBehaviour : MonoBehaviour
         return frozen;
     }
 
+    public void PullDown(float forceY)
+    {
+        m_Rigidbody2D.AddForce(new Vector2(0f, forceY));
+    }
+
     private IEnumerator Wait()
     {
         frozen = true;
