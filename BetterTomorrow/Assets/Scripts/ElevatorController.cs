@@ -52,6 +52,16 @@ public class ElevatorController : MonoBehaviour
         }
     }
 
+    public void ResetElevator()
+    {
+        transform.position = new Vector2(transform.position.x, startPosition);
+
+        elevatorMove = false;
+        upDirection = true;
+
+        audioSource.Pause();
+    }
+
     private void ElevatorMove()
     {
         character.PullDown(characterPullDownForce);

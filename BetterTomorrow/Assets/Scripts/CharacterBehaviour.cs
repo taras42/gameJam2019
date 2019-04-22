@@ -6,7 +6,6 @@ using UnityEngine;
 public class CharacterBehaviour : MonoBehaviour
 {
     public CharacterController2D controller;
-    public MonoBehaviour gameOverScene;
 
     public Animator animator;
     public float runSpeed = 15f;
@@ -19,7 +18,8 @@ public class CharacterBehaviour : MonoBehaviour
 
     private bool autoMove = false;
     private float autoMoveDirection = 1f;
-    private Vector3 firtsLevelStartPosition = new Vector2(-7.5f, 0.33f);
+
+    private bool isDead = false;
 
     private void Awake()
     {
@@ -56,6 +56,11 @@ public class CharacterBehaviour : MonoBehaviour
         }
     }
 
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+
     public void EnableAutoMove()
     {
         autoMove = true;
@@ -73,8 +78,21 @@ public class CharacterBehaviour : MonoBehaviour
 
     public void Die()
     {
+        isDead = true;
         gameObject.SetActive(false);
-        gameOverScene.gameObject.SetActive(true);
+    }
+
+    public bool IsDead()
+    {
+        return isDead;
+    }
+
+    public void RessurectAt(float x, float y)
+    {
+        isDead = false;
+        gameObject.SetActive(true);
+
+        gameObject.transform.position = new Vector2(x, y);
     }
 
     public void SetVisibility(bool isVisible)
