@@ -6,6 +6,8 @@ using UnityEngine;
 public class CharacterBehaviour : MonoBehaviour
 {
     public CharacterController2D controller;
+    public MonoBehaviour gameOverScene;
+
     public Animator animator;
     public float runSpeed = 15f;
     public int waitTime = 3;
@@ -17,6 +19,7 @@ public class CharacterBehaviour : MonoBehaviour
 
     private bool autoMove = false;
     private float autoMoveDirection = 1f;
+    private Vector3 firtsLevelStartPosition = new Vector2(-7.5f, 0.33f);
 
     private void Awake()
     {
@@ -46,7 +49,8 @@ public class CharacterBehaviour : MonoBehaviour
         if (autoMove)
         {
             return autoMoveDirection;
-        } else
+        } 
+        else
         {
             return Input.GetAxisRaw("Horizontal");
         }
@@ -69,8 +73,8 @@ public class CharacterBehaviour : MonoBehaviour
 
     public void Die()
     {
-        // to avoild putting null checks everywhere
         gameObject.SetActive(false);
+        gameOverScene.gameObject.SetActive(true);
     }
 
     public void SetVisibility(bool isVisible)

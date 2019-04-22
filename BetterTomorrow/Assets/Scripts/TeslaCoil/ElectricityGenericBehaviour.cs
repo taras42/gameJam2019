@@ -27,7 +27,7 @@ public class ElectricityGenericBehaviour : MonoBehaviour
         Vector3 characterPosition = character.transform.position;
 
         float dist = Vector2.Distance(transform.position, characterPosition);
-        Debug.Log(dist);
+
         if (dist < 12)
         {
             audioSource.Play();
