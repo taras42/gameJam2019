@@ -75,7 +75,6 @@ public class IntroController : MonoBehaviour
         film2PosYToStartGame = film2Position.y;
 
         conversationComponent.SetConversation(introMonologue);
-        background.gameObject.SetActive(true);
     }
 
     // Update is called once per frame
