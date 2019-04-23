@@ -7,6 +7,7 @@ public class IntroController : MonoBehaviour
 {
     public FoldsBehaviour folds;
     public GameObject background;
+    public GameObject introCharacter;
     public Text gameName;
     public float gameNameFadeTime = 5f;
 
@@ -132,6 +133,7 @@ public class IntroController : MonoBehaviour
 
                         conversationComponent.SetConversation(postIntroMonologue);
                         background.SetActive(false);
+                        introCharacter.SetActive(false);
                         folds.InvertDirection();
                     }
                 }
