@@ -5,18 +5,12 @@ using UnityEngine.UI;
 
 public class CutSceneController : MonoBehaviour
 {
-    public GameObject film1;
-    public GameObject film2;
-
     public CharacterBehaviour character;
 
-    public Text conversationTextComponent;
+    public ConversationBehaviour conversationTextComponent;
     public Text toBeContinuedTextComponent;
 
-    private SpriteRenderer film1SpriteRenderer;
-    private SpriteRenderer film2SpriteRenderer;
-
-    private int filmSortingOrder = 5;
+    public FoldsBehaviour folds;
 
     private float cutSceneTriggerXPos = 18;
     private float cutSceneTriggerYPos = 24;
@@ -24,16 +18,7 @@ public class CutSceneController : MonoBehaviour
 
     private bool startMoveFilms = false;
     private bool filmsFinishedMoving = false;
-    private bool conversationStarted = false;
-    private bool conversationFinished = false;
     private bool showToBeContinuedText = false;
-
-    private float filmSpeed = 3f;
-    private float timeBeforePhrases = 1f;
-    private float timeAfterPhrases = 3f;
-
-    private float film1PosY;
-    private float film2PosY;
 
     private float film1StopPosY = 10f;
     private float film2StopPosY = -10f;
@@ -53,14 +38,7 @@ public class CutSceneController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        conversationTextComponent.gameObject.SetActive(false);
         toBeContinuedTextComponent.gameObject.SetActive(false);
-
-        film1.gameObject.SetActive(false);
-        film2.gameObject.SetActive(false);
-
-        film1SpriteRenderer = film1.GetComponent<SpriteRenderer>();
-        film2SpriteRenderer = film2.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -76,24 +54,27 @@ public class CutSceneController : MonoBehaviour
 
             startMoveFilms = true;
 
-            ActivateFilms();
+            folds.ShowFilms();
         }
 
         if (characterPosX >= cutSceneCharacterStopPosX && characterPosY >= cutSceneTriggerYPos && !filmsFinishedMoving)
         {
             character.SetAutoMoveDirection(0);
 
-            conversationTextComponent.gameObject.SetActive(true);
+            conversationTextComponent.SetConversation(conversation);
 
             startMoveFilms = false;
             filmsFinishedMoving = true;
         }
 
-        if (conversationFinished)
+        if (filmsFinishedMoving && conversationTextComponent.IsConversationFinished())
         {
             startMoveFilms = true;
 
-            if (film1.transform.localPosition.y <= film1StopPosY && film2.transform.localPosition.y >= film2StopPosY)
+            Vector3 film1Position = folds.GetFilm1LocalPosition();
+            Vector3 film2Position = folds.GetFilm2LocalPosition();
+
+            if (film1Position.y <= film1StopPosY && film2Position.y >= film2StopPosY)
             {
                 startMoveFilms = false;
                 showToBeContinuedText = true;
@@ -105,15 +86,12 @@ public class CutSceneController : MonoBehaviour
     {
         if (startMoveFilms)
         {
-            film1.transform.position = new Vector2(film1.transform.position.x, film1.transform.position.y - (filmSpeed * Time.fixedDeltaTime));
-            film2.transform.position = new Vector2(film2.transform.position.x, film2.transform.position.y + (filmSpeed * Time.fixedDeltaTime));
+            folds.MoveFilms();
         }
 
-        if (filmsFinishedMoving && !conversationStarted)
+        if (filmsFinishedMoving && !conversationTextComponent.IsConversationStarted())
         {
-            conversationStarted = true;
-
-            StartCoroutine(StartConversation());
+            StartCoroutine(conversationTextComponent.StartConversation());
         }
 
         if (showToBeContinuedText)
@@ -121,30 +99,5 @@ public class CutSceneController : MonoBehaviour
             toBeContinuedTextComponent.gameObject.SetActive(true);
             toBeContinuedTextComponent.text = toBeContinuedText;
         }
-    }
-
-    private void ActivateFilms()
-    {
-        film1SpriteRenderer.sortingOrder = filmSortingOrder;
-        film2SpriteRenderer.sortingOrder = filmSortingOrder;
-
-        film1.gameObject.SetActive(true);
-        film2.gameObject.SetActive(true);
-    }
-
-    private IEnumerator StartConversation()
-    {
-        foreach(string phrase in conversation)
-        {
-            yield return new WaitForSeconds(timeBeforePhrases);
-
-            conversationTextComponent.text = phrase;
-
-            yield return new WaitForSeconds(timeAfterPhrases);
-        }
-
-        conversationTextComponent.text = "";
-
-        conversationFinished = true;
     }
 }
