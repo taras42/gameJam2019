@@ -8,8 +8,10 @@ public class IntroController : MonoBehaviour
     public FoldsBehaviour folds;
     public GameObject background;
     public GameObject introCharacter;
+    public Text controlsInfoText;
     public Text gameName;
     public float gameNameFadeTime = 5f;
+    public float controlsInfoFadeTime = 5f;
 
     public ConversationBehaviour conversationComponent;
 
@@ -164,6 +166,9 @@ public class IntroController : MonoBehaviour
 
                             startPostIntroMonologue = false;
                             introFinished = true;
+
+                            controlsInfoText.gameObject.SetActive(true);
+                            controlsInfoText.CrossFadeAlpha(0, controlsInfoFadeTime, false);
                         }
                     }
                 }
